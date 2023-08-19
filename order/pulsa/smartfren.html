@@ -1,0 +1,220 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Claymore store - Pulsa Smartfren</title>
+        <link rel="icon" href="/images/smartfren.png" />
+        <!-- bootsrap -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+        />
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossorigin="anonymous"
+        />
+        <!-- end boostrap -->
+        <style>
+        a {
+            font-weight: normal;
+        }
+
+        a:hover {
+            font-weight: bold;
+        }
+
+        /* notifikasi promo/penting */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .notification {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .notification-title {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .notification-message {
+            margin-top: 0;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background-color: #ddd;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            transition: width 0.5s;
+        }
+        /* end notifikasi */
+        </style>
+    </head>
+    <body class="bg-secondary">
+        <!-- notif -->
+        <div class="notification-container">
+        <div class="notification">
+            <h3 class="notification-title">claymorestore.shop</h3>
+            <p class="notification-message">
+            Dapatkan Diskon 10% untuk setiap <br />
+            2x Pembelian
+            </p>
+            <div class="progress-bar"></div>
+        </div>
+        </div>
+        <!-- end notif -->
+        <div class="container position-absolute top-50 start-50 translate-middle">
+        <div class="text-center text-white">
+            <a href="/index">
+            <img
+                src="/images/smartfren.png"
+                class="rounded-3"
+                alt="mlbb.png"
+                style="height: 100px; width: 100px"
+            />
+            </a>
+            <h1>Pulsa Smartfren</h1>
+            <p>
+            Mohon Isi data anda dengan benar !<br />klik logo , jika ingin
+            kembali ke home
+            </p>
+        </div>
+
+        <form id="myForm">
+            <div class="form-floating mb-3">
+            <input
+                type="number"
+                class="form-control"
+                id="input-id"
+                placeholder="user id"
+                name="input-id"
+                required
+            />
+            <label for="input-id">No HP</label>
+            </div>
+
+            <div class="form-floating mb-3">
+            <select
+                class="form-select"
+                id="select1-order"
+                aria-label="Floating label select example"
+                onchange="hasilvalue();"
+                required
+            >
+                <option disabled selected value>Order Produk</option>
+                <option disabled>PRICELIST PULSA SMARTFREN</option>
+                <option value="50.000">50.000 | 10+ MASA AKTIF</option>
+                <option value="71.000">75.000 | 15+ MASA AKTIF</option>
+                <option value="97.000">100.000 | 15+ MASA AKTIF</option>
+                <option value="7.000">5.000 | 7+ MASA AKTIF</option>
+                <option value="12.000">10.000 | 15+ MASA AKTIF</option>
+                <option value="22.000">20.000 | 30+ MASA AKTIF</option>
+                <option value="52.000">50.000 | 45+ MASA AKTIF</option>
+                <option value="103.000">100.000 | 60+ MASA AKTIF</option>
+                <option value="149.000">150.000 | 60+ MASA AKTIF</option>
+                <option value="201.000">200.000 | 120+ MASA AKTIF</option>
+                <option value="298.000">300.000 | 130+ MASA AKTIF</option>
+            </select>
+            <label for="floatingSelect">Pilih Produk Anda</label>
+            </div>
+
+            <!-- pemabyaran -->
+            <div class="form-floating">
+            <select
+                class="form-select mb-4"
+                id="select2-pay"
+                aria-label="Floating label select example"
+                name="select2-pay"
+                required
+            >
+                <option disabled selected value>Pembayaran</option>
+                <option value="BCA">BCA</option>
+                <option value="GOPAY">GOPAY</option>
+                <option value="OVO">OVO</option>
+                <option value="DANA">DANA</option>
+                <option value="QRIS">QRIS</option>
+            </select>
+            <label for="floatingSelect">Pilih Pembayaran Anda</label>
+            </div>
+
+            <div class="d-grid gap-2">
+            <button class="btn btn-primary" id="myButton" type="submit">
+                Pesan Sekarang
+            </button>
+            </div>
+        </form>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+        <script src="/js/config-smart.js"></script>
+        <script>
+        // on changes
+        function hasilvalue() {
+            let pilihan = document.getElementById("select1-order");
+            if (pilihan.textContent !== "" && pilihan.value !== "") {
+            let selectedValue = pilihan.value;
+            var index2 = pilihan.selectedIndex;
+            var pilihan2 = pilihan.options[index2].textContent;
+            Swal.fire({
+                icon: "question",
+                title: "Apakah Anda yakin ?",
+                text:
+                "Untuk Membeli\n" +
+                pilihan2 +
+                "\nSeharga\nRp." +
+                selectedValue +
+                ",-",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+            }
+        }
+        // start notif
+        document.addEventListener("DOMContentLoaded", function () {
+            let notificationContainer = document.querySelector(
+            ".notification-container"
+            );
+            let closeButton = document.createElement("span");
+            closeButton.style.cursor = "pointer";
+            closeButton.innerHTML = "&times;";
+            closeButton.classList.add("close-button");
+            closeButton.addEventListener("click", function () {
+            notificationContainer.style.display = "none";
+            });
+
+            let notification = document.querySelector(".notification");
+            notification.appendChild(closeButton);
+
+            let progressBar = document.querySelector(".progress-bar");
+            let width = 0;
+            let interval = setInterval(function () {
+            width += 1;
+            progressBar.style.width = width + "%";
+            if (width >= 100) {
+                clearInterval(interval);
+            }
+            }, 60);
+
+            setTimeout(function () {
+            notificationContainer.style.display = "none";
+            }, 5000); // Tampilkan notifikasi selama 5 detik (5000ms)
+        });
+        </script>
+    </body>
+    </html>

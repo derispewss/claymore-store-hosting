@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tabel Penjualan | versi 0.3</title>
+<!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <style>
+    /* CSS untuk custom styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        }
+
+    form {
+        margin-bottom: 16px;
+    }
+    </style>
+    </head>
+    <body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Tabel Penjualan | versi 0.3</h1>
+        <form id="form-penjualan">
+        <div class="row">
+            <div class="col-md-3 mb-3">
+            <input type="text" class="form-control" id="nama-barang" placeholder="Nama Barang" required>
+            </div>
+            <div class="col-md-3 mb-3">
+            <input type="number" class="form-control" id="jumlah" placeholder="HargaPublic" required>
+            </div>
+            <div class="col-md-3 mb-3">
+            <input type="number" class="form-control" id="harga-satuan" placeholder="HargaReseller" required>
+            </div>
+            <div class="col-md-3 mb-3">
+            <button type="submit" class="btn btn-primary">Tambah Data</button>
+            </div>
+        </div>
+        </form>
+        <table class="table table-bordered" id="penjualan-table">
+        <thead>
+            <tr>
+                <th>Nomor Faktur</th>
+                <th>Nama Barang</th>
+                <th>Harga Public</th>
+                <th>Harga Reseller</th>
+                <th>Total</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4">Total Penjualan</th>
+                <th id="total-penjualan"></th>
+                <th></th>
+            </tr>
+        </tfoot>
+        </table>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+    // install firebase
+    const firebaseConfig = {
+    apiKey: "AIzaSyAqcpfYhABJxpUxNBiLUVbKJUpc8UnZ66o",
+    authDomain: "claymore-store.firebaseapp.com",
+    databaseURL: "https://claymore-store-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "claymore-store",
+    storageBucket: "claymore-store.appspot.com",
+    messagingSenderId: "524081879273",
+    appId: "1:524081879273:web:e4f501d6beeb26c4a83878",
+    measurementId: "G-FYBG2BB4NN"
+    };
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Referensi ke database Firebase
+        var database = firebase.database();
+
+        // Mendapatkan referensi ke tabel penjualan
+        var penjualanRef = database.ref('penjualan');
+
+        // Fungsi untuk mendapatkan nama hari dalam bahasa Indonesia
+        function getNamaHari(hari) {
+            const daftarNamaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            return daftarNamaHari[hari];
+        }
+        // Fungsi untuk mendapatkan tanggal dan waktu sekarang dalam format bahasa Indonesia
+        function getNowDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const dayOfWeek = getNamaHari(now.getDay());
+            return `${dayOfWeek}, ${day}-${month}-${year}, ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Fungsi untuk menghasilkan nomor faktur unik berdasarkan timestamp Date.now()
+        function generateNomorFaktur() {
+        var timestamp = getNowDateTime();;
+        var nomorFaktur = timestamp;
+        return nomorFaktur;
+        }
+
+        // Fungsi untuk menambahkan data penjualan ke dalam tabel HTML
+        function tambahkanDataPenjualan(nomorFaktur, namaBarang, HargaPublic, HargaReseller, total) {
+        var table = document.getElementById("penjualan-table").getElementsByTagName("tbody")[0];
+        var newRow = table.insertRow(table.rows.length);
+
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        var cell6 = newRow.insertCell(5);
+
+        cell1.innerHTML = nomorFaktur;
+        cell2.innerHTML = namaBarang;
+        cell3.innerHTML = HargaPublic;
+        cell4.innerHTML = HargaReseller;
+        cell5.innerHTML = total;
+        cell6.innerHTML = '<button onclick="hapusDataPenjualan(\'' + nomorFaktur + '\')" class="btn btn-danger">Hapus</button>';
+
+        updateTotal();
+        }
+
+        // Fungsi untuk menghapus data penjualan dari tabel HTML dan Firebase
+        function hapusDataPenjualan(nomorFaktur) {
+        // Menghapus data penjualan dari Firebase berdasarkan nomor faktur
+        penjualanRef.child(nomorFaktur).remove()
+            .then(() => {
+            // Menghapus baris dari tabel HTML berdasarkan nomor faktur
+            var table = document.getElementById("penjualan-table").getElementsByTagName("tbody")[0];
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 0; i < rows.length; i++) {
+                var dataNomorFaktur = rows[i].getElementsByTagName("td")[0].innerText;
+                if (dataNomorFaktur === nomorFaktur) {
+                table.deleteRow(i);
+                break;
+                }
+            }
+            Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Dihapus',
+            text: 'Data penjual sudah terhapus dari database.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+            })
+            updateTotal();
+            })
+            .catch((error) => {
+            console.error("Terjadi kesalahan:", error);
+            });
+        }
+
+        // Fungsi untuk menghitung total penjualan dan menampilkannya dalam elemen <th>
+        function updateTotal() {
+        var table = document.getElementById("penjualan-table");
+        var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        var total = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var totalCell = row.getElementsByTagName("td")[4];
+            var totalValue = parseInt(totalCell.innerText); // Menghilangkan karakter non-angka sebelum menghitung total
+            total += totalValue;
+        }
+
+        var totalPenjualanTh = document.getElementById("total-penjualan");
+        totalPenjualanTh.innerText = total;
+        }
+
+        // Mendapatkan data penjualan dari Firebase saat halaman dimuat
+        penjualanRef.on('child_added', function(snapshot) {
+        var nomorFaktur = snapshot.key;
+        var penjualanData = snapshot.val();
+        tambahkanDataPenjualan(nomorFaktur, penjualanData.namaBarang, penjualanData.jumlah, penjualanData.hargaSatuan, penjualanData.total);
+        });
+
+        document.getElementById("form-penjualan").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var namaBarang = document.getElementById("nama-barang").value;
+        var HargaPublic = parseInt(document.getElementById("jumlah").value);
+        var HargaReseller = parseInt(document.getElementById("harga-satuan").value);
+
+        var total = HargaPublic - HargaReseller;
+
+        var nomorFaktur = generateNomorFaktur(); // Membuat nomor faktur unik berdasarkan timestamp
+        var penjualanData = {
+            namaBarang: namaBarang,
+            jumlah: HargaPublic,
+            hargaSatuan: HargaReseller,
+            total: total
+        };
+
+        // Menyimpan data penjualan ke Firebase dengan kunci kustom (nomor faktur)
+        penjualanRef.child(nomorFaktur).set(penjualanData)
+            .then(() => {
+            Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Ditambahkan',
+            text: 'Data penjual sudah tersimpan ke database.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+            })
+            tambahkanDataPenjualan(nomorFaktur, namaBarang, HargaPublic, HargaReseller, total);
+            document.getElementById("nama-barang").value = "";
+            document.getElementById("jumlah").value = "";
+            document.getElementById("harga-satuan").value = "";
+            })
+            .catch((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Ditambahkan',
+                text: "Data gagal ditambahkan ke database.",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+            console.error("Terjadi kesalahan:", error);
+            });
+        });
+    </script>
+</body>
+</html>

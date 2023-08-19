@@ -1,0 +1,41 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    .custom-input {
+        display: none;
+    }
+    </style>
+    <script>
+    function optionChanged() {
+        var selectedOption = document.getElementById("options").value;
+        var customInput = document.getElementById("customInput");
+
+        if (selectedOption === "custom") {
+        customInput.style.display = "block";
+        } else {
+        customInput.style.display = "none";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("options").addEventListener("change", optionChanged);
+    });
+    </script>
+    </head>
+    <body>
+    <label for="options">Select an option:</label>
+    <select id="options">
+        <option value="1000">Option 1000</option>
+        <option value="2000">Option 2000</option>
+        <option value="custom">Custom</option>
+    </select>
+
+    <div id="customInput" class="custom-input">
+        <label for="customValue">Enter custom value:</label>
+        <input type="text" id="customValue">
+    </div>
+    </body>
+    </html>

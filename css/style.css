@@ -1,0 +1,415 @@
+/*CLAYMORE STORE*/
+/* style dot css */
+
+:root {
+    --blue: #2C2546;
+    --dark-blue: #1B1535;
+    --green: #00EB09;
+    --white: #fff;
+    --biru1: #3D4CF5;
+    --biru2: #025EC0;
+    --biru3: #007AF5;
+    --violet: #52016A;
+    --violet2: #6602CA;
+    --hijau: #016A45;
+    --item: #000000;
+    --denim: #516B82;
+    --denim2: #5B7492;
+    --grey: #888689;
+    --cream: #E9DDD1;
+    --navy: #192A56;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--dark-blue);
+}
+
+button {
+    display: none;
+}
+
+/*IMPORT FONT*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.status {
+    background-color: green;
+    text-align: center;
+    height: 20px;
+    border-radius: 5px;
+    width: 90px;
+}
+
+.n-status {
+    background-color: red;
+    text-align: center;
+    height: 20px;
+    border-radius: 5px;
+    width: 130px;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.header {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 1rem 4rem;
+    font-weight: bold;
+    font-size: 15pt;
+    background-color: var(--navy);
+    z-index: 999;
+}
+
+.title {
+    color: var(--white);
+    font-size: 15pt;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+}
+
+nav ul li a {
+    position: relative;
+    color: var(--white);
+    font-size: 11pt;
+}
+
+nav ul li a:hover {
+    border-bottom: 1px solid var(--white);
+}
+
+li.active a {
+    color: var(--denim2);
+}
+
+.menu {
+    transition: .5s;
+}
+
+.swiper {
+    width: 70%;
+    margin-top: 6rem;
+}
+
+.swiper-slide img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.list__harga {
+    color: var(--white);
+}
+
+.title-p,
+.title-t,
+.title-v {
+    margin-top: 2rem;
+    margin-bottom: 10px;
+}
+
+.populer,
+.top-up-pulsa,
+.voucher {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    font-weight: bold;
+}
+
+.populer img,
+.top-up-pulsa img,
+.voucher img {
+    border-radius: 10px;
+    width: 100%;
+}
+
+.link a {
+    font-weight: normal;
+    color: var(--item);
+    transition: font-weight 0.3s ease;
+}
+
+.link a:hover {
+    font-weight: bold;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 999;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: var(--navy);
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.popup p {
+    color: white;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: var(--white);
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.popup .close:hover {
+    color: var(--cream);
+}
+
+.content {
+    width: 100%;
+}
+
+.harga {
+    color: var(--green);
+}
+
+.pesan {
+    color: var(--white);
+    background-color: var(--green);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.pesan:hover {
+    color: var(--item);
+    background-color: var(--white);
+    transition: ease-in .3s;
+}
+
+.pesan img {
+    margin-top: 30px;
+    width: 15px;
+}
+
+.card {
+    background-color: var(--blue);
+    padding: 5%;
+    border-radius: 10px;
+    box-shadow: 20px 20px black;
+}
+
+.card h1 {
+    text-align: center;
+}
+
+footer {
+    display: grid;
+    justify-content: center;
+    background-color: var(--navy);
+    margin-top: 10%;
+    padding: 2%;
+    text-align: center;
+}
+
+footer p {
+    color: white;
+}
+
+.sosmed {
+    display: column;
+}
+
+.sosmed h3 {
+    color: var(--white);
+}
+
+.sosmed a {
+    color: var(--white);
+    font-weight: normal;
+    transition: font-weight 0.3s ease;
+}
+
+.sosmed a:hover {
+    font-weight: bold;
+}
+.sosmed img {
+    width: 30px;
+    margin: 0 auto;
+}
+
+.copyright {
+    color: var(--white);
+    background-color: var(--navy);
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* RESPONSIVE WEB DI HANDPHONE */
+@media screen and (max-width:640px) {
+    .container {
+        max-width: 640px;
+        padding: 1rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    button {
+        display: block;
+    }
+
+    nav ul {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: var(--navy);
+        padding: 2rem;
+        width: 15rem;
+        height: 10rem;
+        border-radius: 10px;
+    }
+
+    .hamburger-menu {
+        border: none;
+        background-color: transparent;
+        position: relative;
+        z-index: 999;
+    }
+
+    .hamburger-menu:hover {
+        cursor: pointer;
+    }
+
+    .hamburger-menu>span:nth-child(1) {
+        width: 25px;
+        height: 2px;
+        background: var(--white);
+        display: block;
+        margin: 5px 0;
+        border-radius: 10px;
+    }
+
+    .hamburger-menu>span:nth-child(2) {
+        width: 15px;
+        height: 2px;
+        background: var(--green);
+        display: block;
+        margin: 5px 0;
+        border-radius: 10px;
+    }
+
+    .hamburger-menu>span:nth-child(3) {
+        width: 25px;
+        height: 2px;
+        background: var(--white);
+        display: block;
+        margin: 5px 0;
+        border-radius: 10px;
+    }
+
+    .hamburger-active>span {
+        transform: rotate(45deg);
+    }
+
+    .hamburger-active>span:nth-child(2) {
+        display: none;
+    }
+
+
+    .swiper {
+        width: 90%;
+    }
+
+    .populer,
+    .top-up-pulsa,
+    .voucher {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        font-weight: bold;
+    }
+
+    .popup {
+        width: 90%;
+    }
+
+    .copyright {
+        font-size: 10pt;
+        background-color: var(--biru3);
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .container {
+        max-width: 1280px;
+    }
+
+    nav ul {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sosmed {
+        margin: 0 auto;
+    }
+}
