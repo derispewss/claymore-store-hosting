@@ -34,14 +34,14 @@
                         <div class="card-body">
                             <div id="phone-section">
                                 <label for="phoneNumber">Phone Number:</label>
-                                <input type="tel" class="form-control" id="phoneNumber" placeholder="+6282324XXXXXX" onkeyup="formatNumber();">
+                                <input type="tel" class="form-control" id="phoneNumber" placeholder="+6282324XXXXXX" onkeyup="formatNumber();" required>
                                 <div class="d-grid gap-2">
                                     <button class="btn btn-success mt-3" id="sendCodeBtn">Login</button>
                                 </div>
                             </div>
                             <div id="code-section" style="display: none;">
                                 <label for="verificationCode">Verification Code:</label>
-                                <input type="text" class="form-control" id="verificationCode" placeholder="Enter verification code">
+                                <input type="text" class="form-control" id="verificationCode" placeholder="Enter verification code" required>
                                 <div class="d-grid gap-2">
                                     <button class="btn btn-success mt-3" id="verifyCodeBtn">Verify Code</button>
                                 </div>
