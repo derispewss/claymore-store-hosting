@@ -39,8 +39,8 @@
                         Swal.hideLoading();
                         Swal.fire({
                         icon: 'success',
-                        title: 'Kode OTP telah terkirim !',
-                        text: 'chek notifikasi di smartphone kalian.',
+                        title: 'OTP telah terkirim !',
+                        text: 'chek notifikasi pesan di smartphone kalian.',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                         });
