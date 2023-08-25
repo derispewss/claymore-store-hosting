@@ -157,24 +157,24 @@ document.head.appendChild(script);
                             confirmButtonText: 'Saya sudah bayar !' // Menghilangkan tombol OK
                             }).then(() => {
                             var dataDate2 = getNowDateTime2();
-                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
+                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AUID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
                             window.location.href = whatsapp, '_blank';
                             })
                         } else if (payment === 'BCA') {
                             var dataDate2 = getNowDateTime2();
-                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
+                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AUID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
                             window.location.href = whatsapp, '_blank';
                         } else if (payment === 'GOPAY') {
                             var dataDate2 = getNowDateTime2();
-                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
+                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AUID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
                             window.location.href = whatsapp, '_blank';
                         } else if (payment === 'DANA') {
                             var dataDate2 = getNowDateTime2();
-                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
+                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AUID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
                             window.location.href = whatsapp, '_blank';
                         } else if (payment === 'OVO') {
                             var dataDate2 = getNowDateTime2();
-                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
+                            var whatsapp = `https://api.whatsapp.com/send?phone=${admin}&text=*CLAYMORESTORE.SHOP*%0A${dataDate2}%0ADengan Nomor invoice :%0A*${customId}*%0A%0A*FORMAT ORDER FREE FIRE*%0A%0AUID : ${inputId}%0ANickname: ${username}%0ANama Item : ${nominalOrder}%0ANominal Pembelian : *Rp.${order},-*%0APembayaran : ${payment}%0A%0AKalian bisa chek : %0A_${web}_%0A%0A_Powered by claymorestore.shop_`
                             window.location.href = whatsapp, '_blank';
                         }
                         }, 500);
