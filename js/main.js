@@ -79,7 +79,7 @@
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                         }).then(() => {
-                            window.location.href = 'admin/tabel-penjualan', '_blank';
+                            window.location.href = 'admin/blank', '_blank';
                         })
                     }
                 });
