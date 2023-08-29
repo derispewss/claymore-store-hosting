@@ -150,7 +150,7 @@ document.head.appendChild(script);
                         Swal.fire({
                             title: 'qris - TOKO DERIS',
                             text: 'silahkan bayar & screenshot \ndengan nominal Rp.' + order + ',-',
-                            imageUrl: '/images/qris.png',
+                            imageUrl: 'images/qris.png',
                             imageWidth: 300,
                             imageHeight: 300,
                             imageAlt: 'qris.jpg',
