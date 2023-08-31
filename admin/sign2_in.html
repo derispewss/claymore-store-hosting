@@ -60,10 +60,10 @@
         <button type="submit" id="loginButton" class="w-full bg-green-700 text-white font-medium py-2 rounded hover:bg-green-800">Login</button>
     </form>
     <div class="mt-4 text-center">
-        <a href="admin/reset_password" class="text-blue-500 hover:underline">Forgot Password?</a>
+        <a href="/admin/reset_password" class="text-blue-500 hover:underline">Forgot Password?</a>
     </div>
     <div class="mt-4 text-center">
-        <p class="text-gray-600">Don't have an account? <a href="admin/sign_up" class="text-blue-500 hover:underline">Sign Up</a></p>
+        <p class="text-gray-600">Don't have an account? <a href="/admin/sign_up" class="text-blue-500 hover:underline">Sign Up</a></p>
     </div>
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
@@ -125,7 +125,7 @@
                     onClosing: function() {
                         // Redirect to another page after 3 detik
                         setTimeout(function() {
-                        window.location.href = 'admin/blank'; // Ganti dengan URL tujuan Anda
+                        window.location.href = '/admin/blank'; // Ganti dengan URL tujuan Anda
                         }, 1000);
                     }
                     });
