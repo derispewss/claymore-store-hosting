@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login is now maintenance !">
-    <base href="https://derispewss.github.io/claymore-store-hosting/">
     <title>Sign In - Claymore Store</title>
+    <link rel="icon" href="https://shorturl.at/hosv7">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
@@ -13,19 +13,49 @@
             cursor: not-allowed;
         }
     </style>
+    <script>
+        // Fungsi untuk mendapatkan nama hari dalam bahasa Indonesia
+        function getNamaHari(hari) {
+            const daftarNamaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            return daftarNamaHari[hari];
+        }
+        // Fungsi untuk mendapatkan tanggal dan waktu sekarang dalam format bahasa Indonesia
+        function getNowDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const dayOfWeek = getNamaHari(now.getDay());
+            return `${dayOfWeek}, ${day}-${month}-${year}, ${hours}:${minutes}:${seconds}`;
+        }
+
+        function updateDay() {
+        const indonesianDay = getNowDateTime();
+        document.getElementById('update-day').textContent = indonesianDay;
+        }
+
+        window.onload = function() {
+        updateDay();
+        setInterval(updateDay, 1000); // Update setiap 1 detik
+        };
+    </script>
 </head>
-<body class="bg-green-600 flex justify-center items-center h-screen">
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 flex justify-center items-center h-screen">
 
 <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
     <h1 class="text-2xl font-semibold mb-4">Sign In - Claymore Store</h1>
+    <p class="text-left text-red-600 mb-2" id="update-day"></p>
     <form id="loginForm">
         <div class="mb-4">
             <label for="username" class="block font-medium mb-2">Email</label>
-            <input type="email" id="email" placeholder="enter your email" name="username" class="w-full border rounded px-3 py-2">
+            <input type="email" id="email" placeholder="enter your email" name="email" class="w-full border rounded px-3 py-2" required>
         </div>
         <div class="mb-4">
             <label for="password" class="block font-medium mb-2">Password</label>
-            <input type="password" id="password" placeholder="enter your password" name="password" class="w-full border rounded px-3 py-2">
+            <input type="password" id="password" placeholder="enter your password" name="password" class="w-full border rounded px-3 py-2" required>
         </div>
         <button type="submit" id="loginButton" class="w-full bg-green-700 text-white font-medium py-2 rounded hover:bg-green-800">Login</button>
     </form>
@@ -66,7 +96,7 @@
         // Menggunakan form submit event
         document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Mencegah form dari pengiriman normal
-        
+
         const loginButton = document.getElementById('loginButton');
         const backButton = document.getElementById('backButton');
         
@@ -81,7 +111,7 @@
         // Mendapatkan nilai email dan password dari form
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        
+
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
@@ -105,7 +135,7 @@
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 iziToast.error({
-                    title: 'Login Gagal',
+                    title: 'Invalid !',
                     message: errorMessage,
                     position: 'topRight',
                     timeout: 3000 // Notifikasi akan menghilang setelah 3 detik
