@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login is now maintenance !">
+    <base href="https://derispewss.github.io/claymore-store-hosting/">
+    <title>Sign In - Claymore Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .disable-click {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-green-600 flex justify-center items-center h-screen">
+
+<div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <h1 class="text-2xl font-semibold mb-4">Sign In - Claymore Store</h1>
+    <form id="loginForm">
+        <div class="mb-4">
+            <label for="username" class="block font-medium mb-2">Email</label>
+            <input type="email" id="email" placeholder="enter your email" name="username" class="w-full border rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+            <label for="password" class="block font-medium mb-2">Password</label>
+            <input type="password" id="password" placeholder="enter your password" name="password" class="w-full border rounded px-3 py-2">
+        </div>
+        <button type="submit" id="loginButton" class="w-full bg-green-700 text-white font-medium py-2 rounded hover:bg-green-800">Login</button>
+    </form>
+    <div class="mt-4 text-center">
+        <a href="/reset_password" class="text-blue-500 hover:underline">Forgot Password?</a>
+    </div>
+    <div class="mt-4 text-center">
+        <p class="text-gray-600">Don't have an account? <a href="/sign_up" class="text-blue-500 hover:underline">Sign Up</a></p>
+    </div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+    apiKey: "AIzaSyAqcpfYhABJxpUxNBiLUVbKJUpc8UnZ66o",
+    authDomain: "claymore-store.firebaseapp.com",
+    databaseURL: "https://claymore-store-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "claymore-store",
+    storageBucket: "claymore-store.appspot.com",
+    messagingSenderId: "524081879273",
+    appId: "1:524081879273:web:e4f501d6beeb26c4a83878",
+    measurementId: "G-FYBG2BB4NN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+        // Menggunakan form submit event
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Mencegah form dari pengiriman normal
+        
+        const loginButton = document.getElementById('loginButton');
+        const backButton = document.getElementById('backButton');
+        
+        loginButton.disabled = true;
+        loginButton.classList.add('disable-click');
+
+        setTimeout(function() {
+            loginButton.disabled = false;
+            loginButton.classList.remove('disable-click');
+            }, 6000);
+
+        // Mendapatkan nilai email dan password dari form
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                if (userCredential) {
+                iziToast.success({
+                    title: 'Login Sukses!',
+                    message: 'Selamat datang \n' + email,
+                    position: 'topRight',
+                    timeout: 3000, // Penundaan 3 detik
+                    onClosing: function() {
+                        // Redirect to another page after 3 detik
+                        setTimeout(function() {
+                        window.location.href = '/main'; // Ganti dengan URL tujuan Anda
+                        }, 1000);
+                    }
+                    });
+                }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                iziToast.error({
+                    title: 'Login Gagal',
+                    message: errorMessage,
+                    position: 'topRight',
+                    timeout: 3000 // Notifikasi akan menghilang setelah 3 detik
+                });
+            });
+        });
+</script>
+</body>
+</html>
