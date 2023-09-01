@@ -134,12 +134,28 @@
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                if (errorCode === 'auth/wrong-password') {
                 iziToast.error({
-                    title: 'Invalid !',
+                    title: 'error!',
+                    message: 'invalid password',
+                    position: 'topRight',
+                    timeout: 3000 // Notifikasi akan menghilang setelah 3 detik
+                });
+                } else if (errorCode === 'auth/user-not-found') {
+                iziToast.error({
+                    title: 'error!',
+                    message: 'user not found !',
+                    position: 'topRight',
+                    timeout: 3000 // Notifikasi akan menghilang setelah 3 detik
+                });
+                } else {
+                iziToast.error({
+                    title: 'error!',
                     message: errorMessage,
                     position: 'topRight',
                     timeout: 3000 // Notifikasi akan menghilang setelah 3 detik
                 });
+                }
             });
             document.getElementById("loginForm").reset();
         });
